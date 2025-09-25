@@ -1,20 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { ThemeProvider } from "styled-components";
+import Routes from "./src/routes";
+import { tema } from "./src/styles";
+import { useEffect } from "react";
+import * as NavigationBar from "expo-navigation-bar";
+import { AuthContextProvider } from "./src/contexts/AuthContext";
 
 export default function App() {
+  useEffect(() => {
+    NavigationBar.setVisibilityAsync("hidden");
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar style="dark" />
+      <ThemeProvider theme={tema}>
+        <AuthContextProvider>
+          <Routes />
+        </AuthContextProvider>
+      </ThemeProvider>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
